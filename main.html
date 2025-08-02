@@ -5,67 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Rudraksha Pharmacy</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f0fff0;
-      margin: 0;
-      padding: 0;
-    }
-    header {
-      background-color: #2e7d32;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    nav {
-      background-color: #c8e6c9;
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 0.5rem;
-      flex-wrap: wrap;
-    }
-    nav a {
-      text-decoration: none;
-      color: #2e7d32;
-      font-weight: bold;
-    }
-    .container {
-      padding: 1rem;
-    }
-    .product {
-      background-color: white;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-    .product h2 {
-      margin-top: 0;
-    }
-    .btn {
-      background-color: #388e3c;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 5px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-    }
-    footer {
-      text-align: center;
-      background-color: #2e7d32;
-      color: white;
-      padding: 1rem;
-      margin-top: 2rem;
-    }
+    body { font-family: Arial, sans-serif; background: #f0fff0; margin: 0; padding: 0; }
+    header { background-color: #2e7d32; color: white; padding: 1rem; text-align: center; position: relative; }
+    nav { background-color: #c8e6c9; display: flex; justify-content: center; gap: 20px; padding: 0.5rem; flex-wrap: wrap; }
+    nav a { text-decoration: none; color: #2e7d32; font-weight: bold; }
+    .container { padding: 1rem; }
+    .product { background-color: white; border: 1px solid #ccc; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
+    .product h2 { margin-top: 0; }
+    .btn { background-color: #388e3c; color: white; padding: 10px 15px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
+    footer { text-align: center; background-color: #2e7d32; color: white; padding: 1rem; margin-top: 2rem; }
+    .logout-btn { position: absolute; right: 15px; top: 15px; background: #c62828; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
   </style>
+  <script>
+    // Protect main page
+    if (!(localStorage.getItem("loggedIn") === "true" || localStorage.getItem("ownerAccess") === "true")) {
+      window.location.href = "login.html";
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("ownerAccess");
+      window.location.href = "login.html";
+    }
+  </script>
 </head>
 <body>
   <header>
     <h1>Rudraksha Pharmacy</h1>
     <p>Your trusted Ayurvedic remedy partner</p>
+    <button class="logout-btn" onclick="logout()">Logout</button>
   </header>
 
   <nav>
@@ -86,12 +55,12 @@
       <a class="btn" href="https://wa.me/919909105610?text=I want to buy Sugar Control Plus Churna">Buy on WhatsApp</a>
     </div>
 
-<div class="product">
-  <h2>RA Care Plus Churna</h2>
-  <p>Supports joint health and helps manage rheumatoid arthritis symptoms.</p>
-  <p><strong>Price:</strong> ₹280 / 100g</p>
-  <a class="btn" href="https://wa.me/919909105610?text=I want to buy RA Care Plus Churna">Buy on WhatsApp</a>
-</div>
+    <div class="product">
+      <h2>RA Care Plus Churna</h2>
+      <p>Supports joint health and helps manage rheumatoid arthritis symptoms.</p>
+      <p><strong>Price:</strong> ₹280 / 100g</p>
+      <a class="btn" href="https://wa.me/919909105610?text=I want to buy RA Care Plus Churna">Buy on WhatsApp</a>
+    </div>
 
     <div class="product">
       <h2>Pidanashak Plus Churna</h2>
