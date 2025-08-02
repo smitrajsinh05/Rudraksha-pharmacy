@@ -155,72 +155,87 @@
     </form>
   </div>
 
-  <script>
-    const loginForm = document.getElementById("loginForm");
-    const signupForm = document.getElementById("signupForm");
-    const loginError = document.getElementById("loginError");
-    const signupError = document.getElementById("signupError");
-    const signupSuccess = document.getElementById("signupSuccess");
-    const formTitle = document.getElementById("formTitle");
-    const formSubtitle = document.getElementById("formSubtitle");
-    const bgSound = document.getElementById("bgSound");
-    const soundToggle = document.getElementById("soundToggle");
+<script>
+  const loginForm = document.getElementById("loginForm");
+  const signupForm = document.getElementById("signupForm");
+  const loginError = document.getElementById("loginError");
+  const signupError = document.getElementById("signupError");
+  const signupSuccess = document.getElementById("signupSuccess");
+  const formTitle = document.getElementById("formTitle");
+  const formSubtitle = document.getElementById("formSubtitle");
+  const bgSound = document.getElementById("bgSound");
+  const soundToggle = document.getElementById("soundToggle");
 
-    function showSignup() {
-      loginForm.classList.add("hidden");
-      signupForm.classList.remove("hidden");
-      formTitle.textContent = "🌿 Create Your Ayurvedic Account";
-      formSubtitle.textContent = "Join us to access herbal remedies.";
+  // ✅ SHA-256 hashing function
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hashBuffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+  function showSignup() {
+    loginForm.classList.add("hidden");
+    signupForm.classList.remove("hidden");
+    formTitle.textContent = "🌿 Create Your Ayurvedic Account";
+    formSubtitle.textContent = "Join us to access herbal remedies.";
+  }
+
+  function showLogin() {
+    signupForm.classList.add("hidden");
+    loginForm.classList.remove("hidden");
+    formTitle.textContent = "🌿 Login to Rudraksha Pharmacy";
+    formSubtitle.textContent = "Welcome back! Please login to continue.";
+  }
+
+  // ✅ Signup with hashed password
+  signupForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("signupUsername").value;
+    const email = document.getElementById("signupEmail").value;
+    const password = document.getElementById("signupPassword").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+      signupError.style.display = "block";
+      return;
     }
+    const hashedPassword = await hashPassword(password);
+    localStorage.setItem("user_" + username, JSON.stringify({ email, password: hashedPassword }));
+    signupError.style.display = "none";
+    signupSuccess.style.display = "block";
+    setTimeout(showLogin, 1500);
+  });
 
-    function showLogin() {
-      signupForm.classList.add("hidden");
-      loginForm.classList.remove("hidden");
-      formTitle.textContent = "🌿 Login to Rudraksha Pharmacy";
-      formSubtitle.textContent = "Welcome back! Please login to continue.";
+  // ✅ Login with hashed password comparison
+  loginForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const username = document.getElementById("loginUsername").value;
+    const password = document.getElementById("loginPassword").value;
+    const hashedPassword = await hashPassword(password);
+    const userData = JSON.parse(localStorage.getItem("user_" + username));
+
+    if (userData && userData.password === hashedPassword) {
+      localStorage.setItem("loggedIn", "true");
+      window.location.href = "main.html";
+    } else {
+      loginError.style.display = "block";
     }
+  });
 
-    signupForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const username = document.getElementById("signupUsername").value;
-      const email = document.getElementById("signupEmail").value;
-      const password = document.getElementById("signupPassword").value;
-      const confirmPassword = document.getElementById("confirmPassword").value;
-
-      if (password !== confirmPassword) {
-        signupError.style.display = "block";
-        return;
-      }
-      localStorage.setItem("user_" + username, JSON.stringify({ email, password }));
-      signupError.style.display = "none";
-      signupSuccess.style.display = "block";
-      setTimeout(showLogin, 1500);
-    });
-
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const username = document.getElementById("loginUsername").value;
-      const password = document.getElementById("loginPassword").value;
-      const userData = JSON.parse(localStorage.getItem("user_" + username));
-
-      if (userData && userData.password === password) {
-        localStorage.setItem("loggedIn", "true");
-        window.location.href = "main.html";
-      } else {
-        loginError.style.display = "block";
-      }
-    });
-
-    // Toggle sound on button click
-    soundToggle.addEventListener("click", () => {
-      if (bgSound.paused) {
-        bgSound.play();
-        soundToggle.textContent = "🔇 Mute Sound";
-      } else {
-        bgSound.pause();
-        soundToggle.textContent = "🔊 Play Sound";
-      }
-    });
-  </script>
+  // ✅ Sound toggle
+  soundToggle.addEventListener("click", () => {
+    if (bgSound.paused) {
+      bgSound.play();
+      soundToggle.textContent = "🔇 Mute Sound";
+    } else {
+      bgSound.pause();
+      soundToggle.textContent = "🔊 Play Sound";
+    }
+  });
+</script>
+  
 </body>
 </html>
