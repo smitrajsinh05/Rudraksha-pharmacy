@@ -8,7 +8,8 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(rgba(46, 125, 50, 0.85), rgba(200, 230, 201, 0.85)), url('https://i.ibb.co/3FRh9xj/ayurvedic-bg.jpg') no-repeat center center/cover;
+      background: linear-gradient(rgba(46, 125, 50, 0.85), rgba(200, 230, 201, 0.85)), 
+                  url('https://i.ibb.co/3FRh9xj/ayurvedic-bg.jpg') no-repeat center center/cover;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,10 +24,7 @@
       max-width: 400px;
       text-align: center;
     }
-    h2 {
-      color: #2e7d32;
-      margin-bottom: 1rem;
-    }
+    h2 { color: #2e7d32; margin-bottom: 1rem; }
     input {
       width: 90%;
       padding: 10px;
@@ -45,14 +43,8 @@
       cursor: pointer;
       font-size: 18px;
     }
-    .btn:hover {
-      background: #2e7d32;
-    }
-    .error {
-      color: red;
-      font-size: 14px;
-      display: none;
-    }
+    .btn:hover { background: #2e7d32; }
+    .error { color: red; font-size: 14px; display: none; }
     .footer-link {
       margin-top: 10px;
       display: block;
@@ -75,16 +67,25 @@
   </div>
 
   <script>
-    const validUser = "admin"; // You can later connect this to backend authentication
-    const validPass = "Rudraksha@123"; // Strong password
+    // Auto-login for owner if token is present
+    if (localStorage.getItem("ownerAccess") === "true") {
+      window.location.href = "main.html";
+    }
+
+    const validUser = "smitrajsinh";      // Your username
+    const validPass = "Rudraksha@123";    // Strong password
 
     document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
 
-      if(username === validUser && password === validPass) {
-        window.location.href = "index.html"; // Redirect to main site
+      if (username === validUser && password === validPass) {
+        localStorage.setItem("loggedIn", "true");
+        if (username === "smitrajsinh") {
+          localStorage.setItem("ownerAccess", "true"); // Owner auto-login bypass
+        }
+        window.location.href = "main.html";
       } else {
         document.getElementById("errorMsg").style.display = "block";
       }
