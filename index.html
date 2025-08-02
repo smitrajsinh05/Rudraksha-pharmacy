@@ -17,7 +17,7 @@
       overflow: hidden;
     }
 
-    /* Floating leaves animation */
+    /* Floating leaves */
     .leaf {
       position: absolute;
       width: 50px;
@@ -40,15 +40,17 @@
       background: rgba(255, 255, 255, 0.95);
       padding: 2rem;
       border-radius: 20px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       text-align: center;
       animation: fadeIn 0.6s ease-in-out;
       backdrop-filter: blur(5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     h2 { color: #2e7d32; margin-bottom: 0.5rem; }
     p { color: #555; font-size: 14px; margin-bottom: 1.2rem; }
     input {
@@ -98,6 +100,19 @@
       width: 80px;
       margin-bottom: 10px;
     }
+
+    /* Sound Control Button */
+    .sound-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      padding: 8px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -107,9 +122,10 @@
   <img src="https://pngimg.com/d/leaf_PNG7220.png" class="leaf leaf3">
 
   <!-- Background Nature Sound -->
-  <audio autoplay loop volume="0.4">
+  <audio id="bgSound" loop>
     <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_6a975b08eb.mp3" type="audio/mpeg">
   </audio>
+  <button class="sound-btn" id="soundToggle">🔊 Play Sound</button>
 
   <div class="container">
     <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Herbal Icon" class="herbal-icon">
@@ -147,6 +163,8 @@
     const signupSuccess = document.getElementById("signupSuccess");
     const formTitle = document.getElementById("formTitle");
     const formSubtitle = document.getElementById("formSubtitle");
+    const bgSound = document.getElementById("bgSound");
+    const soundToggle = document.getElementById("soundToggle");
 
     function showSignup() {
       loginForm.classList.add("hidden");
@@ -190,6 +208,17 @@
         window.location.href = "main.html";
       } else {
         loginError.style.display = "block";
+      }
+    });
+
+    // Toggle sound on button click
+    soundToggle.addEventListener("click", () => {
+      if (bgSound.paused) {
+        bgSound.play();
+        soundToggle.textContent = "🔇 Mute Sound";
+      } else {
+        bgSound.pause();
+        soundToggle.textContent = "🔊 Play Sound";
       }
     });
   </script>
