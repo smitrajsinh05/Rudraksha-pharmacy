@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rudraksha Pharmacy - Login</title>
+  <title>Login - Rudraksha Pharmacy</title>
   <style>
     body {
       margin: 0;
@@ -25,13 +25,21 @@
       text-align: center;
     }
     h2 { color: #2e7d32; margin-bottom: 1rem; }
-    input {
+    input[type="text"], input[type="password"] {
       width: 90%;
       padding: 10px;
       margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
+    }
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-content: center;
+      margin-bottom: 10px;
+      font-size: 14px;
     }
     .btn {
       background: #388e3c;
@@ -45,13 +53,7 @@
     }
     .btn:hover { background: #2e7d32; }
     .error { color: red; font-size: 14px; display: none; }
-    .footer-link {
-      margin-top: 10px;
-      display: block;
-      color: #2e7d32;
-      text-decoration: none;
-      font-weight: bold;
-    }
+    .footer-link { margin-top: 10px; display: block; color: #2e7d32; text-decoration: none; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -60,31 +62,34 @@
     <form id="loginForm">
       <input type="text" id="username" placeholder="Enter Username" required><br>
       <input type="password" id="password" placeholder="Enter Password" required><br>
+      <div class="remember">
+        <input type="checkbox" id="rememberMe"> <label for="rememberMe">Remember Me</label>
+      </div>
       <p id="errorMsg" class="error">Invalid credentials! Try again.</p>
       <button type="submit" class="btn">Login</button>
     </form>
-    <a href="#" class="footer-link">Forgot Password?</a>
+    <a href="signup.html" class="footer-link">New user? Signup</a>
   </div>
 
   <script>
-    // Auto-login for owner if token is present
-    if (localStorage.getItem("ownerAccess") === "true") {
+    // Auto-login if remembered
+    if (localStorage.getItem("rememberedUser")) {
+      localStorage.setItem("loggedIn", "true");
       window.location.href = "main.html";
     }
-
-    const validUser = "smitrajsinh";      // Your username
-    const validPass = "Rudraksha@123";    // Strong password
 
     document.getElementById("loginForm").addEventListener("submit", function(e) {
       e.preventDefault();
       const username = document.getElementById("username").value.trim();
       const password = document.getElementById("password").value.trim();
+      const savedPassword = localStorage.getItem("user_" + username);
 
-      if (username === validUser && password === validPass) {
+      if (savedPassword && password === savedPassword) {
         localStorage.setItem("loggedIn", "true");
-        if (username === "smitrajsinh") {
-          localStorage.setItem("ownerAccess", "true"); // Owner auto-login bypass
+        if (document.getElementById("rememberMe").checked) {
+          localStorage.setItem("rememberedUser", username);
         }
+        if (username === "smitrajsinh") localStorage.setItem("ownerAccess", "true");
         window.location.href = "main.html";
       } else {
         document.getElementById("errorMsg").style.display = "block";
