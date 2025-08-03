@@ -1,53 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rudraksha Pharmacy</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌿 Rudraksha Pharmacy | Medicines</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f0fff0; margin: 0; padding: 0; }
-    header { background-color: #2e7d32; color: white; padding: 1rem; text-align: center; position: relative; }
-    nav { background-color: #c8e6c9; display: flex; justify-content: center; gap: 20px; padding: 0.5rem; flex-wrap: wrap; }
-    nav a { text-decoration: none; color: #2e7d32; font-weight: bold; }
-    .container { padding: 1rem; }
-    .product { background-color: white; border: 1px solid #ccc; border-radius: 10px; padding: 1rem; margin-bottom: 1rem; }
-    .product h2 { margin-top: 0; }
-    .btn { background-color: #388e3c; color: white; padding: 10px 15px; border: none; border-radius: 5px; text-decoration: none; display: inline-block; margin-top: 10px; }
-    footer { text-align: center; background-color: #2e7d32; color: white; padding: 1rem; margin-top: 2rem; }
-    .logout-btn { position: absolute; right: 15px; top: 15px; background: #c62828; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; }
-  </style>
-  <script>
-    // Protect main page
-    if (!(localStorage.getItem("loggedIn") === "true" || localStorage.getItem("ownerAccess") === "true")) {
-      window.location.href = "login.html";
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1582719478173-2d4a1e6e3b99?auto=format&fit=crop&w=1200&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #2e7d32;
     }
 
-    // Logout function
-    function logout() {
-      localStorage.removeItem("loggedIn");
-      localStorage.removeItem("ownerAccess");
-      window.location.href = "login.html";
+    header {
+      background: rgba(46, 125, 50, 0.9);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
-  </script>
+
+    .container {
+      max-width: 1100px;
+      margin: 2rem auto;
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+    }
+
+    .product h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      background-color: #388e3c;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #1b5e20;
+    }
+
+    .order-section {
+      text-align: center;
+      margin: 2rem 0;
+    }
+
+    .order-section .btn {
+      font-size: 1.1rem;
+      padding: 12px 20px;
+      background: #2e7d32;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: #2e7d32;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: rgba(46, 125, 50, 0.9);
+      color: white;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <h1>Rudraksha Pharmacy</h1>
-    <p>Your trusted Ayurvedic remedy partner</p>
-    <button class="logout-btn" onclick="logout()">Logout</button>
-  </header>
+  <!-- Login Protection -->
+  <script>
+    if (!localStorage.getItem("loggedIn")) {
+      window.location.href = "index.html";
+    }
+  </script>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#products">Products</a>
-    <a href="#order">Order</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <header>🌿 Ayurvedic Medicines - Rudraksha Pharmacy</header>
+  <button class="back-btn" onclick="window.location.href='main.html'">⬅ Back to Dashboard</button>
 
-  <div class="container" id="products">
-    <h2>Our Ayurvedic Medicines</h2>
-
+  <div class="container">
     <div class="product">
       <h2>Sugar Control Plus Churna</h2>
       <p>Helps regulate blood sugar naturally.</p>
@@ -91,26 +157,13 @@
     </div>
   </div>
 
-  <div class="container" id="order">
-    <h2>Place Your Order Online</h2>
-    <p>You can also place an order using our secure online form. We will confirm your order via WhatsApp or phone.</p>
+  <!-- ✅ Order Section -->
+  <div class="order-section">
+    <h2>🛒 Place Your Order Online</h2>
+    <p>Fill out our secure Google Form and we will confirm your order.</p>
     <a class="btn" href="https://forms.gle/JLVbbERp3kyRJfqb7" target="_blank">Order via Google Form</a>
   </div>
 
-  <div class="container" id="about">
-    <h2>About Us</h2>
-    <p>Rudraksha Pharmacy is dedicated to providing authentic, custom-made Ayurvedic medicines using classical formulations and modern safety standards. Trusted by thousands of patients.</p>
-  </div>
-
-  <div class="container" id="contact">
-    <h2>Contact</h2>
-    <p><strong>Phone:</strong> +91-9909105610</p>
-    <p><strong>Email:</strong> sijadeja00@gmail.com</p>
-    <p><strong>Location:</strong> Rudraksha Life Care, Gujarat, India</p>
-  </div>
-
-  <footer>
-    &copy; 2025 Rudraksha Pharmacy. All rights reserved.
-  </footer>
+  <footer>© 2025 Rudraksha Pharmacy | Authentic Ayurvedic Remedies</footer>
 </body>
 </html>
