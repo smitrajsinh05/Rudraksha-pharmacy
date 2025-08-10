@@ -70,6 +70,35 @@
       width: 100%;
       bottom: 0;
     }
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+    
   </style>
 </head>
 <body>
@@ -77,17 +106,17 @@
 
   <button class="logout" onclick="logout()">Logout</button>
 
-  <div class="dashboard">
-    <div class="card" onclick="window.location.href='pharmacy.html'">
-   <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Medicine">
-   <h3>View Medicines</h3>
-   <p>See the list of available Ayurvedic medicines.</p>
+  <div class="card" onclick="window.location.href='pharmacy.html'">
+    <img src="https://cdn-icons-png.flaticon.com/512/2906/2906274.png" alt="Medicine">
+    <h3>View Medicines</h3>
+    <p>See the list of available Ayurvedic medicines.</p>
 </div>
-    <div class="card">
-      <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="Add Medicine">
-      <h3>Add New Medicine</h3>
-      <p>Add new Ayurvedic formulations to the pharmacy list.</p>
-    </div>
+   <div class="card">
+    <img src="https://cdn-icons-png.flaticon.com/512/2910/2910768.png" alt="Add Medicine">
+    <h3>Add New Medicine</h3>
+    <p>Add new Ayurvedic formulations to the pharmacy list.</p>
+    <a href="add-medicine.html" class="btn btn-primary">➕ Add New Medicine</a>
+</div>
     <div class="card">
       <img src="https://cdn-icons-png.flaticon.com/512/2910/2910766.png" alt="Orders">
       <h3>Manage Orders</h3>
